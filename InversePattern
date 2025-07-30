@@ -1,0 +1,45 @@
+.MODEL SMALL
+.STACK 100H
+.DATA 
+N DB 0
+M DB 0 
+.CODE
+
+MAIN PROC
+    MOV AH,01H
+    INT 21H
+    
+    SUB AL,'0'
+    MOV N,AL
+    MOV M,AL
+    
+    MOV BL,0
+    OUTER:
+    
+        MOV CL,N
+        INNER:
+            MOV AH,02H
+            MOV DX,2AH
+            INT 21H
+            DEC CL
+            CMP CL,0
+            JNE INNER
+        DEC N
+        MOV DX,0AH
+        INT 21H
+        MOV DX,0DH
+        INT 21H
+        INC BL
+        CMP BL,M
+        JNE OUTER
+    
+    
+    
+    
+
+
+MAIN ENDP
+END MAIN
+
+
+
